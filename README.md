@@ -71,9 +71,25 @@ Local direct DNS tests and client integration tests have different scopes. The m
 
 ## Recording and authorship
 
+AI tools used were ChatGPT/Codex, Gemini, and Muse (Kyaw Gyi). Muse was used only for a final submission audit; it did not participate in the original diagnosis or repairs. The scope of each tool's use is declared in [AI_CRITIQUE.md](AI_CRITIQUE.md).
+
 Thet Htoo Naing operated the lab terminal and applied the repairs with ChatGPT/Codex guidance. Recording began after the repairs, at the final verification stage. `session.log` therefore does not contain the original diagnosis or repair process. Earlier evidence quoted in the incident log comes from terminal output retained and shared in the assistance conversation.
 
-Each member must commit their own actual work using their own Git identity. Further review or documentation contributions should be described accurately in commit messages.
+### Git Author Identity and Audited History
+
+The Git author name **Charles** belongs to **Thet Htoo Naing**, as confirmed by him. Commits `5609ca2` and `cf8d524` use that author name and are associated by GitHub with his account `6705140009-thn`. Commit `64be606` uses his full name. These names identify the same member, not an additional group member.
+
+At audited head `487025b`, the account-linked history was:
+
+| Member account | Commits | Interpretation |
+| --- | --- | --- |
+| 6705140009-thn | 3 | Reports, repairs/config evidence and documentation updates |
+| 6705140042-lgtv | 2 | Reverse-DNS review and expanded analysis |
+| yezayar191004-prog | 2 | Forward-DNS review and expanded analysis |
+| Flexxzzzz | 2 | One file-changing firewall review commit (6c58dd5); one empty commit (487025b) |
+| kmhein122 | 2 | Initial repository commit and merge; DHCP review not yet committed at that audited head |
+
+An empty commit adds no evidence of additional work. The DHCP review document was prepared from supplied real verification output and must be personally reviewed and committed by Kaung Myat Hein to establish his new review contribution. The table describes the audited historical head; subsequent commits can be checked in GitHub history.
 
 AI was consulted during diagnosis rather than after an independent human diagnosis. The incident log was prepared retrospectively from retained outputs. These process limitations are disclosed in [AI_CRITIQUE.md](AI_CRITIQUE.md). Passing the technical checker does not remove them or establish a final overall grade.
 
