@@ -115,6 +115,24 @@ These queries were run from the repaired server against its own DNS address. The
 
 The earlier live client checker, saved in checker_result.txt, separately reported 25.0 / 25, including the checked reverse lookup and successful client resolution through the DHCP-provided DNS server.
 
+## Additional Technical Analysis
+
+### Why the reverse zone name is 19.168.192.in-addr.arpa
+
+For the lab's IPv4 /24 network, the first three address octets are reversed in the reverse-zone name. Address 192.168.19.40 is queried as 40.19.168.192.in-addr.arpa. The zone's record owner 40 therefore maps to api.novapeak.lab. The trailing dot makes the target an absolute DNS name rather than a name relative to the reverse zone.
+
+### Forward and reverse consistency
+
+The review results map .10 to ns1, .20 to www, .30 to mail and .40 to api. The group's separate forward-DNS verification returns those same addresses for the corresponding names. These two evidence sets agree for all four hosts. A syntactically valid reverse zone alone would not establish that agreement; the individual query answers must also be compared.
+
+### Evaluating the AI advice
+
+Gemini suggested querying the reverse mapping for 192.168.19.40. Testing all four addresses gives broader coverage. Gemini also mixed NOERROR and NXDOMAIN in its description of record failures. They are different response codes: these four tests returned NOERROR with actual PTR answers. An absent queried name can return NXDOMAIN, while an existing name without the requested record type may return NOERROR with no matching answer. The response code and answer section must be read together.
+
+### If a future test fails
+
+A zone-check error should lead to inspection of the declared file, syntax and records. A timeout should lead to investigation of reachability and whether the service is answering; it does not by itself prove a missing PTR. A valid authoritative answer with an unexpected hostname points to record data or the zone being queried. Any future failure would require new evidence before making a change.
+
 ## AI Assistance
 
 ChatGPT/Codex assisted with preparing the verification commands, interpreting the supplied results, and drafting this review. The evidence above comes from the actual terminal output of the repaired lab session.
