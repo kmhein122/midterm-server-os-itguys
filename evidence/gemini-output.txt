@@ -1,0 +1,147 @@
+Here is a comprehensive diagnosis of the lab environment based on the provided configuration files, symptoms, and network specifications.
+
+---
+
+## 1. Summary of Confirmed Faults vs. Assumptions
+
+| Component | Status | Fault Description | Evidence |
+| --- | --- | --- | --- |
+| **ISC DHCP** | **Confirmed** | Advertises public DNS (`8.8.8.8`) instead of the local nameserver (`192.168.19.10`). | DHCP config explicitly has `option domain-name-servers 8.8.8.8;`. |
+| **BIND9 Zone File** | **Confirmed** | Zone declaration points to a non-existent file (`/etc/bind/db.MISSING`). | `named-checkconf -z` reports `file not found` for `novapeak.lab`. |
+| **Firewall (iptables)** | **Confirmed** | UDP port 53 traffic is dropped, blocking standard DNS queries. | Rule `-A INPUT -p udp -m udp --dport 53 -j DROP` is present. |
+| **DNS Record Mismatch** | **Confirmed** | The `api` record in the forward zone points to `.1` instead of `.40`. | Forward zone has `api IN A 192.168.19.1`, but spec and reverse zone expect `.40`. |
+| **File Paths / Service Names** | **Assumption** | Assumed standard Debian/Ubuntu BIND9 file layouts (`/etc/bind/named.conf.local`) and `systemctl` service names. | Standard for typical Linux BIND9/DHCP lab setups. |
+
+---
+
+## 2. Detailed Fault Analysis & Safe Repair Commands
+
+### Fault 1: DHCP Advertises Incorrect DNS Server
+
+* **Why it fails:** The DHCP configuration instructs clients to use `8.8.8.8` as their nameserver. Because public DNS servers have no knowledge of the private internal domain (`novapeak.lab`), clients cannot resolve company hostnames.
+* **Safe Repair Command:**
+1. Edit `/etc/dhcp/dhcpd.conf` and update the DNS option:
+```text
+option domain-name-servers 192.168.19.10;
+
+```
+
+
+2. Restart the DHCP server:
+```bash
+sudo systemctl restart isc-dhcp-server
+
+```
+
+
+
+
+
+### Fault 2: BIND9 Zone File Filename Mismatch
+
+* **Why it fails:** The zone declaration in BIND9 specifies `file "/etc/bind/db.MISSING";`, whereas the actual zone file created on disk is named `/etc/bind/db.novapeak.lab`. BIND fails to load the zone at startup.
+* **Safe Repair Command:**
+1. Edit BIND's local zone configuration (`/etc/bind/named.conf.local`) and correct the filename:
+```text
+zone "novapeak.lab" {
+    type master;
+    file "/etc/bind/db.novapeak.lab";
+};
+
+```
+
+
+2. Test the configuration and restart BIND:
+```bash
+sudo named-checkconf -z
+sudo systemctl restart bind9
+
+```
+
+
+
+
+
+### Fault 3: Firewall Drops Incoming DNS (UDP 53)
+
+* **Why it fails:** The rule `-A INPUT -p udp -m udp --dport 53 -j DROP` silently drops incoming UDP queries to port 53. Since standard DNS queries operate primarily over UDP, clients cannot communicate with the nameserver.
+* **Safe Repair Command:**
+1. Remove or correct the drop rule in iptables:
+```bash
+sudo iptables -D INPUT -p udp --dport 53 -j DROP
+
+```
+
+
+2. *Optional (Best Practice):* Ensure an explicit accept rule precedes any drops:
+```bash
+sudo iptables -I INPUT 1 -p udp --dport 53 -j ACCEPT
+sudo iptables -I INPUT 1 -p tcp --dport 53 -j ACCEPT
+
+```
+
+
+
+
+
+### Fault 4: `api` Host Record IP Mismatch
+
+* **Why it fails:** The forward zone file `/etc/bind/db.novapeak.lab` defines `api IN A 192.168.19.1`, but the network requirement and reverse zone (`db.novapeak.lab.rev`) define `api` as `192.168.19.40`. This creates a split-brain inconsistency.
+* **Safe Repair Command:**
+1. Edit `/etc/bind/db.novapeak.lab` and change the line:
+```text
+api IN A 192.168.19.40
+
+```
+
+
+2. Increment the SOA serial number (e.g., from `2024010101` to `2024010102`).
+3. Reload the zone using `rndc`:
+```bash
+sudo rndc reload novapeak.lab
+
+```
+
+
+
+
+
+---
+
+## 3. How to Distinguish Failure Types & Verify from the Client's Point of View
+
+To systematically troubleshoot and verify the fix from a client machine, follow these diagnostic steps:
+
+1. **Verify Network Reachability & DHCP:**
+* *Test:* Release and renew the DHCP lease on the client (`sudo dhclient -r && sudo dhclient lan0`).
+* *Check:* Run `ip route` and `cat /etc/resolv.conf`. Ensure the client received an IP in `192.168.19.104–192.168.19.144`, gateway `192.168.19.1`, domain `novapeak.lab`, and nameserver `192.168.19.10`.
+* *Distinction:* If DHCP gives the wrong nameserver or gateway, the issue is strictly in `dhcpd.conf`.
+
+
+2. **Verify Network-Reachability / Firewall Failures:**
+* *Test:* From the client, run `nc -zuv 192.168.19.10 53` or `dig @192.168.19.10 ns1.novapeak.lab`.
+* *Distinction:* If the query times out entirely without a response packet, suspect a routing or firewall block (such as the iptables UDP drop rule).
+
+
+3. **Verify Zone-Loading vs. Record-Level Failures:**
+* *Test:* Query the server directly using `dig`:
+```bash
+dig @192.168.19.10 www.novapeak.lab A
+dig @192.168.19.10 -x 192.168.19.40
+
+```
+
+
+* *Distinction:*
+* **Zone-Loading Failure:** BIND returns `SERVFAIL` or `REFUSED`, and `journalctl -u bind9` shows zone loading errors (like `file not found`).
+* **Record-Level Failure:** BIND responds successfully (`NOERROR`), but returns `NXDOMAIN` (record missing) or an incorrect IP address (such as `api` resolving to `.1` instead of `.40`), indicating a typo inside the zone file itself.
+
+
+
+
+
+---
+
+Would you like assistance in generating automated test scripts or verification playbooks for this lab environment?
+
+* Ask for additional configuration files if troubleshooting advanced BIND views or TSIG keys.
