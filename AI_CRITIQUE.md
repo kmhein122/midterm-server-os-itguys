@@ -52,3 +52,16 @@ For each AI suggestion that was WRONG or misleading, describe it and how you ver
 - **Where an AI genuinely helped:** AI #1 connected the observed failures to specific configuration and runtime causes, suggested separating TCP and UDP tests, and helped organize the evidence. Its repair suggestions were supported by the retained outputs and final 25/25 checker result. Gemini independently analyzed the supplied original-state description and identified the same four faults, giving a useful second assessment of the proposed causes. This was a review of supplied evidence after the repair, not a second live repair run. Its clear fault summary was useful, while its verification details needed closer scrutiny.
 - **What we learned about trusting AI to diagnose a live system it cannot see:** Advice must be treated as a hypothesis until tested. A successful DHCP lease did not prove the DNS option was correct. A zone-load success did not prove every record was correct. A local TCP answer did not prove the client could use UDP DNS. The strongest final evidence was the live client obtaining settings by DHCP and resolving through the advertised company resolver. The missing original recording and the diagnosis-first requirement remain process limitations even though the technical checker passed.
 
+## Additional Verification Reviews
+
+The following documents add technical interpretation and critical evaluation using actual post-repair outputs supplied by the group. ChatGPT/Codex helped draft these analyses. They should not be represented as unaided personal writing or as independent pre-AI discovery of the original faults.
+
+| Review scope | Evidence and critical point | Document |
+| --- | --- | --- |
+| Reverse DNS — Kyawt Kay Khine | All four PTR answers were NOERROR and authoritative. Distinguishes successful answers, NXDOMAIN and NOERROR without a matching answer; extends the suggested single reverse query to all four hosts. | [Reverse DNS review](evidence/reverse-dns-review-6705140042.md) |
+| Forward DNS — Ye Zayar Aung | All four A answers matched expected values. Separates zone loading from correct record data, and distinguishes the executed named restart from Gemini's untested rndc alternative. | [Forward DNS review](evidence/forward-dns-review-6705140012.md) |
+| DHCP and client integration — Kaung Myat Hein | Service active and C6–C11 passed. Explains why a lease alone is insufficient and why the assumed client lan0 renewal command was not used. | [DHCP review](evidence/dhcp-integration-review-6705140002.md) |
+| Firewall and transports — Paing Thukha Kyaw | Current INPUT chain lacks the original DROP rule; explicit UDP and TCP queries both answered correctly. Explains why a UDP scan and extra broad ACCEPT rules were insufficient or unnecessary advice for this evidence. | [Firewall review](evidence/firewall-dns-review-6705140018.md) |
+
+These are reviews of the repaired state, not four additional repairs. Individual Git authorship should correspond to actual review and contributions by each member.
+
