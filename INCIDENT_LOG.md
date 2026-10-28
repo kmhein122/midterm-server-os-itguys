@@ -179,3 +179,11 @@ TOTAL: 25.0 / 25
 
 The reverse zone, DHCP pool/netmask, gateway, domain option, DHCP interface selection, and BIND listen/query settings required no changes in the observed investigation. Firewall persistence across a reboot was not tested; the evidence establishes the repaired state in the running lab.
 
+## Supplementary Recorded Repeat — 2026-10-28
+
+The original entries above and root session.log describe the original run and retain its recording limitation. Thet Htoo Naing subsequently completed a fresh-instance repeat with recording from 11:10:52 to 11:21:56 UTC. Setup and an earlier baseline invocation preceded that recording; the recorded baseline rerun and all repairs are included.
+
+The [repeat incident log](evidence/repeat-20261028T111047Z/INCIDENT_LOG.md) contains four structured entries linked to the actual saved files. The [report and index](evidence/repeat-20261028T111047Z/README.md) explain the progression 11/25 → 14/25 → 15/25 → 15/25 → 25/25. The [repeat transcript](evidence/repeat-20261028T111047Z/session.log), before/after snapshots, intermediate checker outputs, TCP/UDP tests and diffs are preserved in that directory. Raw evidence was committed in 783b29a.
+
+The repeat's structured report was drafted afterward from these files. Explanations were recorded during the workflow, with wording supplied by ChatGPT/Codex; the zone explanation was saved to its separate file after the repair, as that file discloses. The repeat demonstrates the repair sequence with prior knowledge and continued AI assistance, not an independent first diagnosis. It does not replace or alter the original history.
+

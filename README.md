@@ -69,11 +69,26 @@ The original investigation and repairs were operated by Thet Htoo Naing with Cha
 
 Local direct DNS tests and client integration tests have different scopes. The member documents explain those limits; the local queries are not presented as independent client-network tests.
 
+## Additional Recorded Repeat Demonstration
+
+Thet Htoo Naing completed a fresh-instance repeat on 2026-10-28 with a recording from **11:10:52 to 11:21:56 UTC (11 minutes 4 seconds)**. It covers the recorded baseline rerun, diagnostics, AI-assisted explanations, all four repairs, intermediate checks and final verification. Initial setup and an earlier baseline check occurred before this transcript began.
+
+The observed checker progression was **11 → 14 → 15 → 15 → 25 / 25**. The evidence was committed under his full name and account in `783b29a`.
+
+- [Repeat report and evidence index](evidence/repeat-20261028T111047Z/README.md)
+- [Repeat incident log](evidence/repeat-20261028T111047Z/INCIDENT_LOG.md)
+- [Recorded workflow](evidence/repeat-20261028T111047Z/session.log)
+- [Final client result](evidence/repeat-20261028T111047Z/checker-final.txt)
+- [Configuration changes](evidence/repeat-20261028T111047Z/config-changes.diff)
+- [Firewall changes](evidence/repeat-20261028T111047Z/firewall-changes.diff)
+
+This supplements the original run rather than replacing it. The faults were already known, and ChatGPT/Codex supplied commands and reasoning text during the repeat. It is not an independent first diagnosis. The final checker file is a copy of the successful post-firewall result; the final-verification file displays that saved result alongside additional validation.
+
 ## Recording and authorship
 
 AI tools used were ChatGPT/Codex, Gemini, and Muse (Kyaw Gyi). Their respective uses in explanation, diagnostic guidance, comparison and submission auditing are declared in [AI_CRITIQUE.md](AI_CRITIQUE.md). Thet Htoo Naing operated the live lab and ran the repair commands; the AI tools did not operate the live lab.
 
-Thet Htoo Naing operated the lab terminal and applied the repairs with ChatGPT/Codex guidance. Recording began after the repairs, at the final verification stage. `session.log` therefore does not contain the original diagnosis or repair process. Earlier evidence quoted in the incident log comes from terminal output retained and shared in the assistance conversation.
+Thet Htoo Naing operated the lab terminal and applied the repairs with ChatGPT/Codex guidance. In the original run, recording began after the repairs, at the final verification stage. The root `session.log` therefore does not contain the original diagnosis or repair process. Earlier evidence quoted in the original incident log comes from terminal output retained and shared in the assistance conversation. The later repeat transcript linked above separately records the fresh-instance workflow.
 
 ### Git Author Identity and Audited History
 

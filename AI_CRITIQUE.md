@@ -10,7 +10,7 @@ Comparison completed using the actual Gemini response supplied by Thet Htoo Nain
 
 | AI tool | What we used it for |
 | --- | --- |
-| ChatGPT/Codex | Explained the assignment step by step; interpreted terminal outputs supplied by Thet Htoo Naing; suggested diagnostic and repair commands; helped interpret the checker; prepared documentation from actual retained evidence. |
+| ChatGPT/Codex | Explained the assignment step by step; interpreted terminal outputs supplied by Thet Htoo Naing; suggested diagnostic and repair commands; helped interpret the checker; prepared documentation from actual retained evidence. During the fresh-instance repeat, also supplied the recording workflow, commands, checkpoint interpretation and wording of the reasoning notes; drafted the repeat report afterward from saved evidence. |
 | Gemini | Analyzed the original broken configuration, symptoms and expected network specification in a separate test after the repair; proposed repairs and client verification steps. Its actual response was compared with the retained lab evidence. |
 | Muse| Explained the assignment and submission rules from the guideline repo; interpreted the first 11/25 checker screenshot and grouped the failing checks for diagnosis; suggested diagnostic commands for named-checkconf, reachability, and DHCP; checked the Killercoda page read-only (sign-in gate, nothing clicked or logged in); audited the group repo read-only against the guideline, including fixed configs, checker result, incident log, AI critique, session log, evidence, and authorship. Did not operate the live lab, run repair commands, or edit the repository. |
 
@@ -68,4 +68,14 @@ The following documents add technical interpretation and critical evaluation usi
 | Firewall and transports — Paing Thukha Kyaw | Current INPUT chain lacks the original DROP rule; explicit UDP and TCP queries both answered correctly. Explains why a UDP scan and extra broad ACCEPT rules were insufficient or unnecessary advice for this evidence. | [Firewall review](evidence/firewall-dns-review-6705140018.md) |
 
 These are reviews of the repaired state, not four additional repairs. Individual Git authorship should correspond to actual review and contributions by each member.
+
+## Supplementary Recorded Repeat: Scope and Evaluation
+
+Thet Htoo Naing completed a fresh-instance repeat on 2026-10-28. The [transcript](evidence/repeat-20261028T111047Z/session.log) runs from 11:10:52 to 11:21:56 UTC and includes the recorded baseline rerun and all subsequent repairs. Initial setup and an earlier unrecorded baseline check occurred before it began. Raw repeat evidence was committed under his account in 783b29a.
+
+The [repeat report](evidence/repeat-20261028T111047Z/README.md) and [incident log](evidence/repeat-20261028T111047Z/INCIDENT_LOG.md) map the evidence to the fault sequence. Scores progressed 11 → 14 → 15 → 15 → 25 / 25. DHCP correction improved C9; zone-path correction improved C4; API correction changed the TCP answer without improving UDP-based client checks; removing the demonstrated UDP DROP rule allowed the final client integration to pass.
+
+ChatGPT/Codex continued to provide commands and interpretation throughout. It supplied the English reasoning text used in the notes, including the DHCP and zone-path explanations, rather than merely correcting independently written student explanations. The API and firewall files explicitly label their reasoning as AI-assisted. These notes and the post-run structured report are not evidence of unaided reasoning. No new Gemini comparison was performed and no additional Muse activity during this repeat is claimed.
+
+The new transcript strengthens evidence of the executed process: it records the wrong settings, repairs, validation and intermediate outcomes, including TCP success versus UDP timeout immediately before firewall repair. The original recording limitation remains true for the original run. Prior knowledge and AI assistance mean the repeat still does not establish an independent first diagnosis or retroactively meet the original diagnosis-first sequence. The instructor determines how this supplementary evidence affects assessment.
 
