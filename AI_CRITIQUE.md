@@ -10,8 +10,9 @@ Comparison completed using the actual Gemini response supplied by Thet Htoo Nain
 
 | AI tool | What we used it for |
 | --- | --- |
-| ChatGPT/Codex | Explained the assignment in Burmese; interpreted terminal outputs supplied by Thet Htoo Naing; suggested diagnostic and repair commands; helped interpret the checker; prepared documentation from actual retained evidence. |
+| ChatGPT/Codex | Explained the assignment Steps By Steps; interpreted terminal outputs supplied by Thet Htoo Naing; suggested diagnostic and repair commands; helped interpret the checker; prepared documentation from actual retained evidence. |
 | Gemini | Analyzed the original broken configuration, symptoms and expected network specification in a separate test after the repair; proposed repairs and client verification steps. Its actual response was compared with the retained lab evidence. |
+| Muse| Explained the assignment and submission rules from the guideline repo; interpreted the first 11/25 checker screenshot and grouped the failing checks for diagnosis; suggested diagnostic commands for named-checkconf, reachability, and DHCP; checked the Killercoda page read-only (sign-in gate, nothing clicked or logged in); audited the group repo read-only against the guideline, including fixed configs, checker result, incident log, AI critique, session log, evidence, and authorship. Did not operate the live lab, run repair commands, or edit the repository. |
 
 ChatGPT/Codex did not directly operate the live lab. Thet Htoo Naing ran its suggested commands in KillerCoda and supplied the resulting output. Other members' work must be attributed only after they actually contribute.
 
