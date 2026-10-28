@@ -10,16 +10,18 @@ Comparison completed using the actual Gemini response supplied by Thet Htoo Nain
 
 | AI tool | What we used it for |
 | --- | --- |
-| ChatGPT/Codex | Explained the assignment Steps By Steps; interpreted terminal outputs supplied by Thet Htoo Naing; suggested diagnostic and repair commands; helped interpret the checker; prepared documentation from actual retained evidence. |
+| ChatGPT/Codex | Explained the assignment step by step; interpreted terminal outputs supplied by Thet Htoo Naing; suggested diagnostic and repair commands; helped interpret the checker; prepared documentation from actual retained evidence. |
 | Gemini | Analyzed the original broken configuration, symptoms and expected network specification in a separate test after the repair; proposed repairs and client verification steps. Its actual response was compared with the retained lab evidence. |
 | Muse| Explained the assignment and submission rules from the guideline repo; interpreted the first 11/25 checker screenshot and grouped the failing checks for diagnosis; suggested diagnostic commands for named-checkconf, reachability, and DHCP; checked the Killercoda page read-only (sign-in gate, nothing clicked or logged in); audited the group repo read-only against the guideline, including fixed configs, checker result, incident log, AI critique, session log, evidence, and authorship. Did not operate the live lab, run repair commands, or edit the repository. |
 
-ChatGPT/Codex did not directly operate the live lab. Thet Htoo Naing ran its suggested commands in KillerCoda and supplied the resulting output. Other members' work must be attributed only after they actually contribute.Muse also did not directly operate the live lab or edit the repository. Muse read the public guideline repo and the group's public repo in read-only clones for the audit. Muse did not name db.MISSING, the api .1 address, or the iptables DROP rule before the group found them; it pointed to the config files and diagnostic commands to check. The 3c comparison below covers ChatGPT/Codex and Gemini only; Muse's guidance is declared here and was not run as a separate post-repair comparison like Gemini's.
+ChatGPT/Codex did not directly operate the live lab. Thet Htoo Naing ran its suggested commands in KillerCoda and supplied the resulting output. Other members' work is attributed according to their actual contributions.
+
+Muse also did not directly operate the live lab or edit the repository. Muse read the public guideline repo and the group's public repo in read-only clones for the audit. Muse did not name db.MISSING, the api .1 address, or the iptables DROP rule before the group found them; it pointed to the config files and diagnostic commands to check. The 3c comparison below covers ChatGPT/Codex and Gemini only; Muse's guidance is declared here and was not run as a separate post-repair comparison like Gemini's.
 
 
 ## Part 3b: Confirm you diagnosed first
 
-We did not complete an independent diagnosis before consulting AI. Thet Htoo Naing sought ChatGPT/Codex guidance while interpreting the first checker results, then ran diagnostic and repair commands with that guidance. This differs from the assignment's diagnosis-first requirement. We disclose this rather than claim independent discovery.
+We did not complete an independent diagnosis before consulting AI. The early guidance described in Part 3a came from ChatGPT/Codex and Muse while the initial checker results were being interpreted. Thet Htoo Naing ran the diagnostic and repair commands, with step-by-step repair assistance from ChatGPT/Codex. This differs from the assignment's diagnosis-first requirement. We disclose this rather than claim independent discovery.
 
 The fault list below was established through this AI-assisted process: wrong DHCP DNS option, nonexistent forward zone file reference, incorrect API A record, and an INPUT firewall rule dropping UDP port 53. The incident log was prepared retrospectively from retained terminal evidence. Session recording started after the repairs and contains final verification only.
 
