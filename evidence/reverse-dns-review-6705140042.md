@@ -25,13 +25,7 @@ for address in 10 20 30 40; do
 done
 ```
 
-The verification output was saved in the lab as:
-
-```text
-evidence/reverse-dns-review-6705140042.txt
-```
-
-The relevant actual output is also included below so this review contains its own evidence.
+The relevant actual terminal output is included below so this review contains its own evidence. A separate raw .txt file is not required to read the evidence in this document.
 
 ## Results
 
