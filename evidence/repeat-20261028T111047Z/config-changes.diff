@@ -1,0 +1,34 @@
+diff -ru /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/before-configs/db.novapeak.lab /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/after-configs/db.novapeak.lab
+--- /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/before-configs/db.novapeak.lab	2026-10-28 11:09:25.011190639 +0000
++++ /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/after-configs/db.novapeak.lab	2026-10-28 11:18:20.301731232 +0000
+@@ -1,7 +1,7 @@
+ $TTL 3600
+-@ IN SOA ns1.novapeak.lab. admin.novapeak.lab. ( 2024010101 3600 1800 604800 3600 )
++@ IN SOA ns1.novapeak.lab. admin.novapeak.lab. ( 2024010102 3600 1800 604800 3600 )
+ @ IN NS ns1.novapeak.lab.
+ ns1 IN A 192.168.19.10
+ www IN A 192.168.19.20
+ mail IN A 192.168.19.30
+-api IN A 192.168.19.1
++api IN A 192.168.19.40
+diff -ru /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/before-configs/dhcpd.conf /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/after-configs/dhcpd.conf
+--- /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/before-configs/dhcpd.conf	2026-10-28 11:09:25.652192621 +0000
++++ /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/after-configs/dhcpd.conf	2026-10-28 11:15:10.413635315 +0000
+@@ -5,5 +5,5 @@
+ subnet 192.168.19.0 netmask 255.255.255.0 {
+ 	range 192.168.19.104 192.168.19.144;
+ 	option routers 192.168.19.1;
+-	option domain-name-servers 8.8.8.8;
++	option domain-name-servers 192.168.19.10;
+ }
+diff -ru /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/before-configs/named.conf.local /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/after-configs/named.conf.local
+--- /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/before-configs/named.conf.local	2026-10-28 11:09:24.676189603 +0000
++++ /root/midterm-server-os-itguys/evidence/repeat-20261028T111047Z/after-configs/named.conf.local	2026-10-28 11:16:54.217882080 +0000
+@@ -1,6 +1,6 @@
+ zone "novapeak.lab" {
+ 	type master;
+-	file "/etc/bind/db.MISSING";
++	file "/etc/bind/db.novapeak.lab";
+ };
+ 
+ zone "19.168.192.in-addr.arpa" {

@@ -1,0 +1,3 @@
+2026-10-28T11:18:15+00:00
+api IN A 192.168.19.1
+AI-assisted reasoning: The zone now loads, but the TCP query returns 192.168.19.1 for api.novapeak.lab. The checker expects 192.168.19.40. This proves that a valid, loaded zone can still contain incorrect record data. Correcting the A record should fix this answer, while the UDP firewall fault remains.

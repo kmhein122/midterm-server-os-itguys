@@ -1,0 +1,82 @@
+2026-10-28T11:12:36+00:00
+DHCP configuration
+option domain-name "novapeak.lab";
+default-lease-time 3600;
+max-lease-time 7200;
+
+subnet 192.168.19.0 netmask 255.255.255.0 {
+	range 192.168.19.104 192.168.19.144;
+	option routers 192.168.19.1;
+	option domain-name-servers 8.8.8.8;
+}
+INTERFACESv4="lan0"
+INTERFACESv6=""
+lan0@if4         UP             192.168.19.10/24 fe80::a0ac:1fff:fe30:e1d3/64 
+BIND configuration and zone files
+options {
+	directory "/var/cache/bind";
+	listen-on { any; };
+	allow-query { any; };
+	recursion no;
+};
+zone "novapeak.lab" {
+	type master;
+	file "/etc/bind/db.MISSING";
+};
+
+zone "19.168.192.in-addr.arpa" {
+	type master;
+	file "/etc/bind/db.novapeak.lab.rev";
+};
+-rw-r--r-- 1 root root 255 Aug 21  2025 /etc/bind/db.0
+-rw-r--r-- 1 root root 271 Aug 18  2025 /etc/bind/db.127
+-rw-r--r-- 1 root root 237 Aug 18  2025 /etc/bind/db.255
+-rw-r--r-- 1 root root 353 Aug 18  2025 /etc/bind/db.empty
+-rw-r--r-- 1 root root 270 Aug 18  2025 /etc/bind/db.local
+-rw-r--r-- 1 bind bind 212 Oct 28 11:09 /etc/bind/db.novapeak.lab
+-rw-r--r-- 1 bind bind 233 Oct 28 11:09 /etc/bind/db.novapeak.lab.rev
+$TTL 3600
+@ IN SOA ns1.novapeak.lab. admin.novapeak.lab. ( 2024010101 3600 1800 604800 3600 )
+@ IN NS ns1.novapeak.lab.
+ns1 IN A 192.168.19.10
+www IN A 192.168.19.20
+mail IN A 192.168.19.30
+api IN A 192.168.19.1
+$TTL 3600
+@ IN SOA ns1.novapeak.lab. admin.novapeak.lab. ( 2024010101 3600 1800 604800 3600 )
+@ IN NS ns1.novapeak.lab.
+10 IN PTR ns1.novapeak.lab.
+20 IN PTR www.novapeak.lab.
+30 IN PTR mail.novapeak.lab.
+40 IN PTR api.novapeak.lab.
+Zone loading check
+zone novapeak.lab/IN: loading from master file /etc/bind/db.MISSING failed: file not found
+zone novapeak.lab/IN: not loaded due to errors.
+_default/novapeak.lab/IN: file not found
+zone 19.168.192.in-addr.arpa/IN: loaded serial 2024010101
+zone localhost/IN: loaded serial 2
+zone 127.in-addr.arpa/IN: loaded serial 1
+zone 0.in-addr.arpa/IN: loaded serial 1
+zone 255.in-addr.arpa/IN: loaded serial 1
+Firewall INPUT rules
+-P INPUT ACCEPT
+-A INPUT -p udp -m udp --dport 53 -j DROP
+DNS listeners
+udp   UNCONN 0      0                           192.168.19.10:53         0.0.0.0:*    users:(("named",pid=2660,fd=25))                      
+udp   UNCONN 0      0                              172.17.0.1:53         0.0.0.0:*    users:(("named",pid=2660,fd=23))                      
+udp   UNCONN 0      0                              172.30.1.2:53         0.0.0.0:*    users:(("named",pid=2660,fd=21))                      
+udp   UNCONN 0      0                               127.0.0.1:53         0.0.0.0:*    users:(("named",pid=2660,fd=18))                      
+udp   UNCONN 0      0                              127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=1306,fd=16))            
+udp   UNCONN 0      0                           127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=1306,fd=14))            
+udp   UNCONN 0      0                                   [::1]:53            [::]:*    users:(("named",pid=2660,fd=27))                      
+udp   UNCONN 0      0      [fe80::1cea:7ab5:5fe2:b538]%enp1s0:53            [::]:*    users:(("named",pid=2660,fd=29))                      
+udp   UNCONN 0      0        [fe80::a0ac:1fff:fe30:e1d3]%lan0:53            [::]:*    users:(("named",pid=2660,fd=31))                      
+tcp   LISTEN 0      10                          192.168.19.10:53         0.0.0.0:*    users:(("named",pid=2660,fd=26))                      
+tcp   LISTEN 0      10                             172.17.0.1:53         0.0.0.0:*    users:(("named",pid=2660,fd=24))                      
+tcp   LISTEN 0      4096                           127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=1306,fd=17))            
+tcp   LISTEN 0      4096                        127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=1306,fd=15))            
+tcp   LISTEN 0      10                             172.30.1.2:53         0.0.0.0:*    users:(("named",pid=2660,fd=22))                      
+tcp   LISTEN 0      10                              127.0.0.1:53         0.0.0.0:*    users:(("named",pid=2660,fd=19))                      
+tcp   LISTEN 0      10       [fe80::a0ac:1fff:fe30:e1d3]%lan0:53            [::]:*    users:(("named",pid=2660,fd=32))                      
+tcp   LISTEN 0      10     [fe80::1cea:7ab5:5fe2:b538]%enp1s0:53            [::]:*    users:(("named",pid=2660,fd=30))                      
+tcp   LISTEN 0      10                                  [::1]:53            [::]:*    users:(("named",pid=2660,fd=28))                      

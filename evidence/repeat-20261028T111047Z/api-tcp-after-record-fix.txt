@@ -1,0 +1,28 @@
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.8-Ubuntu <<>> @192.168.19.10 api.novapeak.lab A +tcp +norecurse +time=2 +tries=1
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50234
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: b0c507986cf052c6010000006ae1da0281fab72db568586a (good)
+;; QUESTION SECTION:
+;api.novapeak.lab.		IN	A
+
+;; ANSWER SECTION:
+api.novapeak.lab.	3600	IN	A	192.168.19.40
+
+;; AUTHORITY SECTION:
+novapeak.lab.		3600	IN	NS	ns1.novapeak.lab.
+
+;; ADDITIONAL SECTION:
+ns1.novapeak.lab.	3600	IN	A	192.168.19.10
+
+;; Query time: 15 msec
+;; SERVER: 192.168.19.10#53(192.168.19.10) (TCP)
+;; WHEN: Wed Oct 28 11:18:26 UTC 2026
+;; MSG SIZE  rcvd: 123
+

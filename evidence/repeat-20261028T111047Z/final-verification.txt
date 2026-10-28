@@ -1,0 +1,78 @@
+2026-10-28T11:21:51+00:00
+zone novapeak.lab/IN: loaded serial 2024010102
+zone 19.168.192.in-addr.arpa/IN: loaded serial 2024010101
+zone localhost/IN: loaded serial 2
+zone 127.in-addr.arpa/IN: loaded serial 1
+zone 0.in-addr.arpa/IN: loaded serial 1
+zone 255.in-addr.arpa/IN: loaded serial 1
+zone novapeak.lab/IN: loaded serial 2024010102
+OK
+zone 19.168.192.in-addr.arpa/IN: loaded serial 2024010101
+OK
+Internet Systems Consortium DHCP Server 4.4.3-P1
+Copyright 2004-2022 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+Config file: /etc/dhcp/dhcpd.conf
+Database file: /var/lib/dhcp/dhcpd.leases
+PID file: /var/run/dhcpd.pid
+active
+active
+Reverse lookup: 192.168.19.10
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 24545
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: bb5f1452bfde5933010000006ae1dacf9c07434add0170a3 (good)
+;; ANSWER SECTION:
+10.19.168.192.in-addr.arpa. 3600 IN	PTR	ns1.novapeak.lab.
+
+Reverse lookup: 192.168.19.20
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 47174
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 3a043b71b3e135e8010000006ae1dacfc34e4bbdde1da04d (good)
+;; ANSWER SECTION:
+20.19.168.192.in-addr.arpa. 3600 IN	PTR	www.novapeak.lab.
+
+Reverse lookup: 192.168.19.30
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 31611
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: f693c2db9ccc0197010000006ae1dacfe5fc85f0599701b9 (good)
+;; ANSWER SECTION:
+30.19.168.192.in-addr.arpa. 3600 IN	PTR	mail.novapeak.lab.
+
+Reverse lookup: 192.168.19.40
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 30584
+;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: ad75bd3e97b5c470010000006ae1dacfac941b3a19991a34 (good)
+;; ANSWER SECTION:
+40.19.168.192.in-addr.arpa. 3600 IN	PTR	api.novapeak.lab.
+
+Final client checker result
+  [   2/2 ] C4   named-checkconf -z clean; named-checkzone clean
+  [   2/2 ] C5   dhcpd -t clean; service running
+  [   2/2 ] C1   named is authoritative for novapeak.lab and reachable from the client.
+  [ 3.0/3 ] C2   all four A records correct
+  [   2/2 ] C3   reverse lookup of 192.168.19.10 returns ns1.
+  [   3/3 ] C6   client obtained a lease: 192.168.19.104
+  [ 2.0/2 ] C7   pool+netmask correct
+  [   2/2 ] C8   gateway advertised correctly
+  [   3/3 ] C9   DHCP advertises the company DNS (192.168.19.10)
+  [   1/1 ] C10  company domain advertised
+  [   3/3 ] C11  client resolves www via the leased resolver
+  --------------------------------------------------
+  TOTAL: 25.0 / 25

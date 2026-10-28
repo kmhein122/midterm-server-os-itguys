@@ -1,0 +1,11 @@
+2026-10-28T11:19:36+00:00
+-P INPUT ACCEPT
+-A INPUT -p udp -m udp --dport 53 -j DROP
+UDP test before firewall repair
+;; communications error to 192.168.19.10#53: timed out
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.8-Ubuntu <<>> @192.168.19.10 api.novapeak.lab A +notcp +ignore +norecurse +time=2 +tries=1
+; (1 server found)
+;; global options: +cmd
+;; no servers could be reached
+AI-assisted reasoning: TCP returns the correct API address, but the INPUT rule drops UDP destination port 53. The UDP test checks whether this transport is blocked. Removing only the demonstrated DROP rule should allow UDP DNS without changing the zone data.

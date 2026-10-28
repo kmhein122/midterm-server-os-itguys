@@ -1,0 +1,3 @@
+2026-10-28T11:18:10+00:00
+Previously entered reasoning, saved after the zone-path repair:
+BIND cannot load the novapeak.lab forward zone because named.conf.local points to /etc/bind/db.MISSING. The named-checkconf -z output confirms that this file does not exist, while the file listing shows /etc/bind/db.novapeak.lab is present. Correcting the path should allow the zone to load, but it will not fix the incorrect API address or the UDP firewall block.
