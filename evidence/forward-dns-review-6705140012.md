@@ -24,7 +24,7 @@ for host in ns1 www mail api; do
 done
 ```
 
-The output was saved in the lab as `evidence/forward-dns-review-6705140012.txt`. Relevant actual output is included below, so this review contains its own evidence.
+Relevant actual terminal output is included below, so this review contains its own evidence without depending on a separate raw .txt file.
 
 ## Results
 
