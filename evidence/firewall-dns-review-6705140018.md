@@ -29,7 +29,7 @@ dig @192.168.19.10 api.novapeak.lab A \
   +norecurse +noall +comments +answer +stats
 ```
 
-The combined output was saved in the lab as `evidence/firewall-dns-review-6705140018.txt`. Relevant actual excerpts are included below so this review contains its own evidence. Unrelated listener entries and EDNS cookies are omitted.
+Relevant actual terminal excerpts are included below so this review contains its own evidence without depending on a separate raw .txt file. Unrelated listener entries and EDNS cookies are omitted.
 
 ## Results
 
